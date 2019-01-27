@@ -142,7 +142,7 @@ managers,Max,45
 
 clients,Jack,41
 clients,Kite,54
-disigners,Fray,27`;
+designers,Fray,27`;
 
         it('чтение пустого файла', (done) => {
             fs.writeFileSync(fileName + '.' + fileNameType, '');
@@ -196,7 +196,7 @@ managers,Max,45
 
 clients,Jack,41
 clients,Kite,54
-disigners,Fray,27`;
+designers,Fray,27`;
 
         it('разбиение пустого файла', (done) => {
             fs.writeFileSync(fileName + '.' + fileNameType, '');
@@ -257,7 +257,7 @@ managers,Jane,26
 managers,Max,45`,
             'c.csv': `clients,Jack,41
 clients,Kite,54`,
-            'd.line': `disigners,Fray,27`,
+            'd.line': `designers,Fray,27`,
             'j.csv': ``
         };
 

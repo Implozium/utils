@@ -69,7 +69,7 @@ class MultiKeyObject {
      * Удаляет значение по массиву ключей
      * @throws {Error} при размере массива равным 0
      * @param {string[]} keys массив ключей
-     * @param {boolean} recursiveToRoot флаг рекурсивного удаления, при `true` удаляет все путые контейнеры которые содержат удаленное значение
+     * @param {boolean} recursiveToRoot флаг рекурсивного удаления, при `true` удаляет все пустые контейнеры которые содержат удаленное значение
      */
     delete(keys, recursiveToRoot = false) {
         if (keys.length === 0) {
@@ -176,7 +176,7 @@ class MultiKeyObject {
     }
 
     /**
-     * Возвращяет итератор для перебора массива ключей объекта
+     * Возвращает итератор для перебора массива ключей объекта
      * @returns {{[Symbol.iterator]: function (): {next: function (): {value: *, done: boolean}}}}
      */
     keys() {
@@ -199,7 +199,7 @@ class MultiKeyObject {
     }
 
     /**
-     * Возвращяет итератор для перебора массива ключей объекта и значений
+     * Возвращает итератор для перебора массива ключей объекта и значений
      * @returns {{[Symbol.iterator]: function (): {next: function (): {value: *, done: boolean}}}}
      */
     entries() {
@@ -222,7 +222,7 @@ class MultiKeyObject {
     }
 
     /**
-     * Возвращяет итератор для перебора значений
+     * Возвращает итератор для перебора значений
      * @returns {{[Symbol.iterator]: function (): {next: function (): {value: *, done: boolean}}}}
      */
     values() {

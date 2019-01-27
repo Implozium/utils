@@ -24,7 +24,7 @@ class OutputStreams {
     /**
      * Производит инициализацию, обнуляя при этом потоки
      * @param {Object.<string, string>=} streams объект с описаниями потоков, где ключ - имя потока, а значение - имя файла
-     * @return {Promise.<this>} промис, который резолвится в `this`
+     * @return {Promise.<this>} промис, который разрешается в `this`
      */
     init(streams = {}) {
         return Object.keys(streams).reduce((promise, key) => {
@@ -36,7 +36,7 @@ class OutputStreams {
      * Добавляет поток
      * @param {string} streamName имя потока
      * @param {string} path путь к файлу для потока
-     * @return {Promise.<this>} промис, который резолвится в `this`
+     * @return {Promise.<this>} промис, который разрешается в `this`
      */
     add(streamName, path) {
         if (!this.outStreams[streamName]) {
@@ -100,7 +100,7 @@ class OutputStreams {
 
     /**
      * Пишет буферы в потоки и закрывает их, а затем обнуляет потоки
-     * @return {Promise.<this>} промис, который резолвится в `this`
+     * @return {Promise.<this>} промис, который разрешается в `this`
      */
     closeAll() {
         return Object.keys(this.outStreams).reduce((promise, key) => {

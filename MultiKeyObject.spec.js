@@ -89,7 +89,7 @@ describe('MultiKeyObject', () => {
         });
     });
     describe('#delete', () => {
-        describe('без рекурсивности', () => {
+        describe('без рекурсии', () => {
             it('без вложености', () => {
                 const multiKeyObject = new MultiKeyObject({a: {b: {c: 4}}});
                 expect(multiKeyObject.delete(['a'])).to.be.true;
@@ -115,7 +115,7 @@ describe('MultiKeyObject', () => {
                 expect(() => multiKeyObject.delete([])).to.throw(Error);
             });
         });
-        describe('с рекурсивностью', () => {
+        describe('с рекурсией', () => {
             it('без вложености', () => {
                 const multiKeyObject = new MultiKeyObject({a: {b: {c: 4}}});
                 expect(multiKeyObject.delete(['a'], true)).to.be.true;
@@ -202,7 +202,7 @@ describe('MultiKeyObject', () => {
             expect(Array.from(multiKeyObject.keys()))
                 .to.eql([]);
         });
-        it('заполненый объект', () => {
+        it('заполненный объект', () => {
             const multiKeyObject = new MultiKeyObject({a: {b: 1, c: 2}, d: {e: 3, f: 4}, j: {}});
             expect(Array.from(multiKeyObject.keys()))
                 .to.eql([['a', 'b'], ['a', 'c'], ['d', 'e'], ['d', 'f'], ['j']]);
@@ -214,7 +214,7 @@ describe('MultiKeyObject', () => {
             expect(Array.from(multiKeyObject.entries()))
                 .to.eql([]);
         });
-        it('заполненый объект', () => {
+        it('заполненный объект', () => {
             const multiKeyObject = new MultiKeyObject({a: {b: 1, c: 2}, d: {e: 3, f: 4}, j: {}});
             expect(Array.from(multiKeyObject.entries()))
                 .to.eql([[['a', 'b'], 1], [['a', 'c'], 2], [['d', 'e'], 3], [['d', 'f'], 4], [['j'], {}]]);
@@ -226,7 +226,7 @@ describe('MultiKeyObject', () => {
             expect(Array.from(multiKeyObject.values()))
                 .to.eql([]);
         });
-        it('заполненый объект', () => {
+        it('заполненный объект', () => {
             const multiKeyObject = new MultiKeyObject({a: {b: 1, c: 2}, d: {e: 3, f: 4}, j: {}});
             expect(Array.from(multiKeyObject.values()))
                 .to.eql([1, 2, 3, 4, {}]);
