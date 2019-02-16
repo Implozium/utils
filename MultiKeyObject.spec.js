@@ -12,6 +12,26 @@ describe('MultiKeyObject', () => {
             expect(multiKeyObject.object).to.eql({a: {b: 4}, c: 3});
         });
     });
+    describe('#prepareKeys', () => {
+        it('массив', () => {
+            expect(MultiKeyObject.prepareKeys(['a', 'b', 'c']))
+                .to.eql(['a', 'b', 'c']);
+        });
+        it('строка', () => {
+            expect(MultiKeyObject.prepareKeys('a.b.c'))
+                .to.eql(['a', 'b', 'c']);
+        });
+        it('строка с другим разделитем', () => {
+            expect(MultiKeyObject.prepareKeys('a/b/c', '/'))
+                .to.eql(['a', 'b', 'c']);
+        });
+        it('пустой массив', () => {
+            expect(() => MultiKeyObject.prepareKeys([])).to.throw(Error);
+        });
+        it('пустая строка', () => {
+            expect(() => MultiKeyObject.prepareKeys('')).to.throw(Error);
+        });
+    });
     describe('#set', () => {
         it('без вложености', () => {
             const multiKeyObject = new MultiKeyObject();
@@ -28,6 +48,14 @@ describe('MultiKeyObject', () => {
             multiKeyObject
                 .set(['a', 'b'], 4)
                 .set(['a', 'b', 'c'], 4);
+
+            expect(multiKeyObject.object).to.eql({a: {b: {c: 4}}});
+        });
+        it('тройная вложеность и дополнение (ключи заданы в виде строки)', () => {
+            const multiKeyObject = new MultiKeyObject();
+            multiKeyObject
+                .set('a.b', 4)
+                .set('a.b.c', 4);
 
             expect(multiKeyObject.object).to.eql({a: {b: {c: 4}}});
         });

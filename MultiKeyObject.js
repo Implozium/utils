@@ -8,17 +8,34 @@ class MultiKeyObject {
     }
 
     /**
+     * Проверяет массив ключей на валидность и разбивает его на массив если это не массив, а строка и возвращает его
+     * @throws {Error} при размере массива равным 0 или пустой строки
+     * @param {string[] | string} keys массив ключей или строка в формате: `<ключ1>[.<ключ2>[....]]`, "person.age.isOld"
+     * @param {string=} delimiter разделитель
+     * @return {string[]} массив ключей
+     */
+    static prepareKeys(keys, delimiter = '.') {
+        if (typeof keys === 'string') {
+            if (keys.length === 0) {
+                throw new Error('String is empty');
+            }
+            keys = keys.split(delimiter);;
+        }
+        if (keys.length === 0) {
+            throw new Error('Array of keys is empty');
+        }
+        return keys;
+    }
+
+    /**
      * Устанавливает значение по массиву ключей
-     * @throws {Error} при размере массива равным 0
-     * @param {string[]} keys массив ключей
+     * @throws {Error} при размере массива равным 0 или пустой строки
+     * @param {string[] | string} keys массив ключей или строка в формате: `<ключ1>[.<ключ2>[....]]`, "person.age.isOld"
      * @param {*} value значение
      * @return {this} this
      */
     set(keys, value) {
-        if (keys.length === 0) {
-            throw new Error('Array of keys is empty');
-        }
-
+        keys = MultiKeyObject.prepareKeys(keys);
         let obj = this.object;
         keys.slice(0, -1).forEach((key) => {
             if (!obj[key] || !(obj[key] instanceof Object)) {
@@ -33,15 +50,12 @@ class MultiKeyObject {
     
     /**
      * Возвращает значение по массиву ключей
-     * @throws {Error} при размере массива равным 0
-     * @param {string[]} keys массив ключей
+     * @throws {Error} при размере массива равным 0 или пустой строки
+     * @param {string[] | string} keys массив ключей или строка в формате: `<ключ1>[.<ключ2>[....]]`, "person.age.isOld"
      * @return {*} значение ключа
      */
     get(keys) {
-        if (keys.length === 0) {
-            throw new Error('Array of keys is empty');
-        }
-
+        keys = MultiKeyObject.prepareKeys(keys);
         let obj = this.object;
         for (let i = 0; i < keys.length; i++) {
             if (obj === null) {
@@ -57,8 +71,8 @@ class MultiKeyObject {
 
     /**
      * Возвращает `true`, если массив ключей есть, иначе `false`
-     * @throws {Error} при размере массива равным 0
-     * @param {string[]} keys массив ключей
+     * @throws {Error} при размере массива равным 0 или пустой строки
+     * @param {string[] | string} keys массив ключей или строка в формате: `<ключ1>[.<ключ2>[....]]`, "person.age.isOld"
      * @return {boolean}
      */
     has(keys) {
@@ -67,15 +81,12 @@ class MultiKeyObject {
 
     /**
      * Удаляет значение по массиву ключей
-     * @throws {Error} при размере массива равным 0
-     * @param {string[]} keys массив ключей
+     * @throws {Error} при размере массива равным 0 или пустой строки
+     * @param {string[] | string} keys массив ключей или строка в формате: `<ключ1>[.<ключ2>[....]]`, "person.age.isOld"
      * @param {boolean} recursiveToRoot флаг рекурсивного удаления, при `true` удаляет все пустые контейнеры которые содержат удаленное значение
      */
     delete(keys, recursiveToRoot = false) {
-        if (keys.length === 0) {
-            throw new Error('Array of keys is empty');
-        }
-
+        keys = MultiKeyObject.prepareKeys(keys);
         const objects = [{key: '', obj: this.object}];
 
         let obj = this.object;
